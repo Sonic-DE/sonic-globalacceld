@@ -78,11 +78,47 @@ static QString getConfigFile()
     return qEnvironmentVariableIsSet("KGLOBALACCEL_TEST_MODE") ? QString() : QStringLiteral("kglobalshortcutsrc");
 }
 
+void GlobalShortcutsRegistry::migrateConfig()
+{
+    const QStringList groups = _config.groupList();
+
+    KConfigGroup services = _config.group("services");
+
+    qWarning() << "valid?" << services.isValid();
+
+    for (const QString &componentName : groups) {
+        KConfigGroup component = _config.group(componentName);
+        KConfigGroup newGroup = services.group(componentName);
+        qWarning() << "valid 2" << newGroup.isValid();
+
+        for (auto [key, value] : component.entryMap().asKeyValueRange()) {
+            qWarning() << "key" << key << "value" << value;
+
+            const QString shortcut = value.split(QLatin1Char(',')).constFirst();
+
+            if (key == QLatin1String("_k_friendly_name")) {
+                continue;
+            }
+
+            qWarning() << "write" << componentName << key << shortcut;
+
+            newGroup.writeEntry(key, shortcut);
+
+            newGroup.sync();
+        }
+    }
+
+    services.sync();
+    _config.sync();
+}
+
 GlobalShortcutsRegistry::GlobalShortcutsRegistry()
     : QObject()
     , _manager(loadPlugin(this))
     , _config(getConfigFile(), KConfig::SimpleConfig)
 {
+    migrateConfig();
+
     if (_manager) {
         _manager->setEnabled(true);
     }
