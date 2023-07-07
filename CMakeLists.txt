@@ -34,8 +34,11 @@ include(ECMPoQmTools)
 include(ECMDeprecationSettings)
 include(KDEClangFormat)
 
+if (TRUE) # TODO: port and remove remaining code in KF5-time deprecated parts, then return to using 0
+set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 5.99.0 CACHE STRING "Control the range of deprecated API excluded from the build [default=5.99.0].")
+else() # normal
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
-
+endif()
 
 find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED DBus Gui Widgets)
 
