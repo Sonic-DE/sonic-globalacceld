@@ -25,6 +25,7 @@ int main(int argc, char **argv)
         return 0;
     }
 
+    auto sessionManager = qgetenv("SESSION_MANAGER");
     // Disable Session Management the right way (C)
     //
     // ksmserver has global shortcuts. disableSessionManagement() does not prevent Qt from
@@ -57,6 +58,8 @@ int main(int argc, char **argv)
     KDBusService service(KDBusService::Unique);
 
     app.setQuitOnLastWindowClosed(false);
+
+    qputenv("SESSION_MANAGER", sessionManager);
 
     // Restart on a crash
     KCrash::setFlags(KCrash::AutoRestart);
