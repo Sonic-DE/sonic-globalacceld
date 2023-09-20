@@ -18,6 +18,7 @@
 #include <KFileUtils>
 #include <KPluginMetaData>
 
+#include <KApplicationTrader>
 #include <QDBusConnection>
 #include <QDir>
 #include <QGuiApplication>
@@ -530,6 +531,21 @@ void GlobalShortcutsRegistry::loadSettings()
 
         KService::Ptr service(new KService(file));
         if (service->noDisplay()) {
+            continue;
+        }
+
+        auto *actionComp = createServiceActionComponent(service);
+        actionComp->activateGlobalShortcutContext(QStringLiteral("default"));
+        actionComp->loadFromService();
+    }
+
+    auto appsWithShortcuts = KApplicationTrader::query([](const KService::Ptr &service) {
+        return service->property(QStringLiteral("X-KDE-Shortcuts")).isValid();
+    });
+
+    for (auto service : appsWithShortcuts) {
+        auto it = findByName(service->storageId());
+        if (it != m_components.cend()) {
             continue;
         }
 
