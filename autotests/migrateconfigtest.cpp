@@ -38,6 +38,7 @@ private Q_SLOTS:
     void testMigrate()
     {
         QStandardPaths::setTestModeEnabled(true);
+        qunsetenv("XDG_DATA_DIRS");
 
         QDir configDir(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation));
         configDir.mkpath(QStringLiteral("."));
@@ -55,6 +56,44 @@ private Q_SLOTS:
 
         compareGroupList(actual, expected);
         compareGroupList(actual.group("services"), expected.group("services"));
+    }
+
+    void testMigrateKey()
+    {
+        QStandardPaths::setTestModeEnabled(true);
+
+        QDir configDir(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation));
+        configDir.mkpath(QStringLiteral("."));
+        configDir.remove(QStringLiteral("kglobalshortcutsrc"));
+
+        QDir dataDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation));
+        dataDir.mkpath(QStringLiteral("kglobalaccel"));
+
+        QFile::copy(QFINDTESTDATA("kglobalshortcutsrc"),
+                    QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1String("/kglobalshortcutsrc"));
+
+        QFile::copy(QFINDTESTDATA("org.kde.test.desktop"),
+                    QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kglobalaccel/org.kde.test.desktop"));
+
+        GlobalShortcutsRegistry registry;
+
+        registry.loadSettings();
+
+        {
+            Component *component = registry.getComponent(QStringLiteral("org.kde.test.desktop"));
+            QList<QKeySequence> keys = component->getShortcutByName(QStringLiteral("dotest"))->keys();
+
+            QList<QKeySequence> expectedKeys{QKeySequence(QStringLiteral("Display")), QKeySequence(QStringLiteral("Meta+P"))};
+            QCOMPARE(keys, expectedKeys);
+        }
+
+        {
+            Component *component = registry.getComponent(QStringLiteral("org.kde.test.desktop"));
+            QList<QKeySequence> keys = component->getShortcutByName(QStringLiteral("_launch"))->keys();
+
+            QList<QKeySequence> expectedKeys{QKeySequence(QStringLiteral("Touchpad Toggle")), QKeySequence(QStringLiteral("Meta+Ctrl+Zenkaku Hankaku"))};
+            QCOMPARE(keys, expectedKeys);
+        }
     }
 };
 

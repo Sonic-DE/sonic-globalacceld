@@ -23,7 +23,7 @@ class GlobalShortcutsRegistry;
  *
  * @author Michael Jansen <kde@michael-jansen.biz>
  */
-class GlobalShortcut
+class KGLOBALACCEL_EXPORT GlobalShortcut
 {
 public:
     GlobalShortcut(const QString &uniqueName, const QString &friendlyName, GlobalShortcutContext *context);

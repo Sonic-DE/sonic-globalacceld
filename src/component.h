@@ -23,7 +23,7 @@ class GlobalShortcutsRegistry;
 /**
  * @author Michael Jansen <kde@michael-jansen.biz>
  */
-class Component : public QObject
+class KGLOBALACCEL_EXPORT Component : public QObject
 {
     Q_OBJECT
 
