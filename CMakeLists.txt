@@ -65,12 +65,15 @@ set_package_properties(XCB PROPERTIES DESCRIPTION "X protocol C-language Binding
                     TYPE OPTIONAL
                     )
 
-find_package(X11)
+option(WITH_X11 "Build with X11 support." ON)
 
-set(HAVE_X11 0)
-
-if(X11_FOUND AND XCB_XCB_FOUND)
-    set(HAVE_X11 1)
+if(WITH_X11)
+    find_package(X11)
+    if(X11_FOUND AND XCB_XCB_FOUND)
+        set(HAVE_X11 1)
+    endif()
+else()
+    set(HAVE_X11 0)
 endif()
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KGLOBALACCELD
