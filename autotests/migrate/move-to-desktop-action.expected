@@ -1,0 +1,8 @@
+[kstuff]
+Launch=Meta+K,Meta+K,Launch
+
+[services][org.kde.test.desktop]
+dotest=Meta+Y,Meta+Shift+T,Testing
+
+[org.kde.bar.desktop]
+DoSomething=Meta+Z,Meta+X,Do Something
