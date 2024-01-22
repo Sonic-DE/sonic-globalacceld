@@ -1,0 +1,13 @@
+[KDE Keyboard Layout Switcher]
+Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Auf nächste Tastaturbelegung umschalten
+_k_friendly_name=Umschaltung der Tastaturbelegung
+
+[org.kde.spectacle.desktop]
+ActiveWindowScreenShot=Shift+Print,Meta+Print,Das aktive Fenster aufnehmen
+CurrentMonitorScreenShot=none,none,Den aktuellen Bildschirm aufnehmen
+FullScreenScreenShot=Meta+Print,Shift+Print,Die gesamte Arbeitsfläche aufnehmen
+OpenWithoutScreenshot=none,none,Ohne Aufnahme eines Bildschirmfotos starten
+RectangularRegionScreenShot=Meta+Shift+Print,Meta+Shift+Print,Einen rechteckigen Bereich aufnehmen
+WindowUnderCursorScreenShot=Meta+Ctrl+Print,Meta+Ctrl+Print,Fenster unter dem Mauszeiger aufnehmen
+_k_friendly_name=Spectacle
+_launch=none,Print,Spectacle
