@@ -89,6 +89,8 @@ int main(int argc, char **argv)
     parser.setOptionsAfterPositionalArgumentsMode(QCommandLineParser::ParseAsOptions);
     parser.addPositionalArgument(QStringLiteral("subcommand"), QStringLiteral("move"));
 
+    qDebug() << "xyz";
+
     parser.parse(app.arguments());
     QStringList args = parser.positionalArguments();
     if (args.isEmpty()) {
