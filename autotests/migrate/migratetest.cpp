@@ -87,6 +87,7 @@ private:
         QProcess process;
         process.setProcessChannelMode(QProcess::ForwardedChannels);
         process.setProgram(ownPath + QLatin1String("/kglobalaccel-migrate"));
+        qDebug() << process.program() << QCoreApplication::applicationDirPath();
         process.setArguments(arguments);
         process.start();
         process.waitForFinished();
