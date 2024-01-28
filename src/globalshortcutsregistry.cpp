@@ -379,11 +379,9 @@ GlobalShortcutsRegistry *GlobalShortcutsRegistry::self()
     return _self;
 }
 
-/**
- * When we are provided just a Shift key press, interpret it as "Shift" not as "Shift+Shift"
- */
-static void correctKeyEvent(int &keyQt)
+static void correctKeyEvent(QKeySequence &activeSequence, int &keyQt)
 {
+    // When we are provided just a Shift key press, interpret it as "Shift" not as "Shift+Shift"
     switch (keyQt) {
     case (Qt::ShiftModifier | Qt::Key_Shift).toCombined():
         keyQt = Qt::Key_Shift;
@@ -398,11 +396,25 @@ static void correctKeyEvent(int &keyQt)
         keyQt = Qt::Key_Meta;
         break;
     }
+    // When the user presses Mod(s)+Alt+Print, the SysReq event is fired only
+    // when the Alt key is released. Before we get the Mod(s)+SysReq event, we
+    // first get a Mod(s)+Alt event, which we have to ignore.
+    // Known limitation: only works when Alt is released before Mod(s).
+    if ((keyQt & ~Qt::KeyboardModifierMask) == Qt::Key_SysReq) {
+        keyQt = Qt::Key_Print | (keyQt & Qt::KeyboardModifierMask) | Qt::AltModifier;
+        if (activeSequence.count() > 0 && (activeSequence[activeSequence.count() - 1].toCombined() & ~Qt::KeyboardModifierMask) == Qt::Key_Alt) {
+            int keys[maxSequenceLength] = {0, 0, 0, 0};
+            for (int i = 0; i < activeSequence.count() - 1; i++) {
+                keys[i] = activeSequence[i].toCombined();
+            }
+            activeSequence = QKeySequence(keys[0], keys[1], keys[2], keys[3]);
+        }
+    }
 }
 
 bool GlobalShortcutsRegistry::keyPressed(int keyQt)
 {
-    correctKeyEvent(keyQt);
+    correctKeyEvent(_active_sequence, keyQt);
     int keys[maxSequenceLength] = {0, 0, 0, 0};
     int count = _active_sequence.count();
     if (count == maxSequenceLength) {
