@@ -19,6 +19,8 @@
 #include <QKeySequence>
 #include <QObject>
 
+#include <chrono>
+
 #include "kglobalaccel_export.h"
 
 class Component;
@@ -161,6 +163,11 @@ private:
     QHash<QKeySequence, GlobalShortcut *> _active_keys;
     QKeySequence _active_sequence;
     QHash<int, int> _keys_count;
+
+    // For use in modifier only shortcuts
+    Qt::KeyboardModifiers m_lastPressedModifiers;
+    bool m_isReleasingModifierOnly = false;
+    std::chrono::microseconds m_modifierFirstReleaseTime;
 
     using ComponentVec = std::vector<ComponentPtr>;
     ComponentVec m_components;
