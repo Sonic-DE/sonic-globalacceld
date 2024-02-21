@@ -533,6 +533,22 @@ bool GlobalShortcutsRegistry::keyReleased(int keyQt)
     return handled;
 }
 
+bool GlobalShortcutsRegistry::pointerPressed(Qt::MouseButtons pointerButtons)
+{
+    Q_UNUSED(pointerButtons)
+    m_isReleasingModifierOnly = false;
+    m_lastPressedModifiers = Qt::NoModifier;
+    return false;
+}
+
+bool GlobalShortcutsRegistry::axisTriggered(int axis)
+{
+    Q_UNUSED(axis)
+    m_isReleasingModifierOnly = false;
+    m_lastPressedModifiers = Qt::NoModifier;
+    return false;
+}
+
 Component *GlobalShortcutsRegistry::createComponent(const QString &uniqueName, const QString &friendlyName)
 {
     auto it = findByName(uniqueName);
