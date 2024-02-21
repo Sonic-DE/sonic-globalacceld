@@ -66,6 +66,26 @@ protected:
      * @returns @c true if the key was handled
      **/
     bool keyReleased(int keyQt);
+    /**
+     * Called by the implementation to inform us about pointer presses
+     * Currently only used for clearing modifier only shortcuts
+     *
+     * @param mods the modifiers that were held down
+     * @param buttons the buttons that were pressed
+     *
+     * @returns @c true if the key was handled
+     */
+    bool pointerPressed(Qt::KeyboardModifiers mods, Qt::MouseButtons buttons);
+    /**
+     * Called by the implementation to inform us about pointer axis events
+     * Currently only used for clearing modifier only shortcuts
+     *
+     * @param mods the modifiers that were held down
+     * @param axis the axis that was triggered
+     *
+     * @returns @c true if the key was handled
+     */
+    bool axisTriggered(Qt::KeyboardModifiers mods, int axis);
 
     class Private;
     QScopedPointer<Private> d;
