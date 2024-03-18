@@ -38,6 +38,7 @@ static bool checkPlatform(const QJsonObject &metadata, const QString &platformNa
 
 static KGlobalAccelInterface *loadPlugin(GlobalShortcutsRegistry *parent)
 {
+    qCritical() << "myfix: loadPlugin";
     QString platformName = QString::fromLocal8Bit(qgetenv("KGLOBALACCELD_PLATFORM"));
     if (platformName.isEmpty()) {
         platformName = QGuiApplication::platformName();
