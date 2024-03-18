@@ -6,7 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "kglobalaccel_test.h"
+#include "dummy.h"
 
 #include "logging_p.h"
 
@@ -16,7 +16,12 @@
 
 //----------------------------------------------------
 
-KGlobalAccelInterface *s_interface;
+static KGlobalAccelImpl *s_interface = nullptr;
+
+KGlobalAccelImpl *KGlobalAccelImpl::instance()
+{
+    return s_interface;
+}
 
 KGlobalAccelImpl::KGlobalAccelImpl(QObject *parent)
     : KGlobalAccelInterface(parent)

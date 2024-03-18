@@ -6,16 +6,18 @@
 
 #include <QTest>
 
+#include "dummy.h"
 #include "kglobalacceld.h"
-#include "plugins/test/kglobalaccel_test.h"
 
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusMessage>
 #include <QDBusReply>
+#include <QPluginLoader>
 #include <QSignalSpy>
 
-extern KGlobalAccelInterface *s_interface;
+Q_IMPORT_PLUGIN(KGlobalAccelImpl)
+
 class ShortcutsTest : public QObject
 {
     Q_OBJECT
@@ -32,11 +34,11 @@ private:
 
 void ShortcutsTest::initTestCase()
 {
-    qputenv("KGLOBALACCELD_PLATFORM", "test");
+    qputenv("KGLOBALACCELD_PLATFORM", "dummy");
     m_globalaccel = std::make_unique<KGlobalAccelD>();
     QVERIFY(m_globalaccel->init());
     // KGlobalAccelImpl *impl = KGlobalAccelImpl::self();
-    m_interface = s_interface;
+    m_interface = KGlobalAccelImpl::instance();
     qCritical() << "myfix: m_interface" << m_interface;
     QVERIFY(m_interface);
     // create dbus call

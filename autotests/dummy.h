@@ -8,11 +8,9 @@
 #ifndef _KGLOBALACCEL_X11_H
 #define _KGLOBALACCEL_X11_H
 
-#include "../../kglobalaccel_interface.h"
+#include "kglobalaccel_interface.h"
 
 #include <QObject>
-
-extern KGlobalAccelInterface *s_interface;
 
 /**
  * @internal
@@ -23,7 +21,7 @@ extern KGlobalAccelInterface *s_interface;
 class KGlobalAccelImpl : public KGlobalAccelInterface
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kglobalaccel5.KGlobalAccelInterface" FILE "test.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kglobalaccel5.KGlobalAccelInterface" FILE "dummy.json")
     Q_INTERFACES(KGlobalAccelInterface)
 
 public:
@@ -46,6 +44,8 @@ public:
 
     /// Enable/disable all shortcuts. There will not be any grabbed shortcuts at this point.
     void setEnabled(bool) override;
+
+    static KGlobalAccelImpl *instance();
 
 public Q_SLOTS:
     bool checkKeyPressed(int keyQt);
