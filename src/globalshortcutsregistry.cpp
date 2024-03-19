@@ -408,7 +408,7 @@ bool GlobalShortcutsRegistry::keyPressed(int keyQt)
 {
     correctKeyEvent(keyQt);
     const int key = keyQt & ~Qt::KeyboardModifierMask;
-    Qt::KeyboardModifiers modifiers = static_cast<Qt::KeyboardModifiers>(keyQt & Qt::KeyboardModifierMask);
+    const Qt::KeyboardModifiers modifiers = static_cast<Qt::KeyboardModifiers>(keyQt & Qt::KeyboardModifierMask);
     switch (key) {
     case Qt::Key_Shift:
     case Qt::Key_Control:
