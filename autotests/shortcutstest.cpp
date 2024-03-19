@@ -116,7 +116,7 @@ void ShortcutsTest::testShortcuts_data()
 
 void ShortcutsTest::testShortcuts()
 {
-    std::unique_ptr<QAction> action(new QAction(this));
+    auto action = std::make_unique<QAction>();
     action->setObjectName(QStringLiteral("ActionForShortcutTest"));
     QFETCH(QKeySequence, shortcut);
     QVERIFY(KGlobalAccel::setGlobalShortcut(action.get(), shortcut));
@@ -149,7 +149,7 @@ void ShortcutsTest::testShortcuts()
 
     QFETCH(bool, triggered);
     if (triggered) {
-        QVERIFY(spy.wait(100));
+        QVERIFY(spy.wait());
         QCOMPARE(spy.count(), 1);
     } else {
         QVERIFY(!spy.wait(100));
