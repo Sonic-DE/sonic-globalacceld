@@ -18,6 +18,7 @@
 #include <QHash>
 #include <QKeySequence>
 #include <QObject>
+#include <QTimer>
 
 #include <chrono>
 
@@ -147,6 +148,7 @@ private:
     KServiceActionComponent *createServiceActionComponent(KService::Ptr service);
     void migrateConfig();
     void migrateKHotkeys();
+    void scheduleRefreshServices();
     void refreshServices();
     void detectAppsWithShortcuts();
 
@@ -182,6 +184,7 @@ private:
     std::chrono::nanoseconds m_modifierFirstReleaseTime;
 
     using ComponentVec = std::vector<ComponentPtr>;
+    QTimer m_refreshServicesTimer;
     ComponentVec m_components;
     ComponentVec::const_iterator findByName(const QString &name) const
     {
