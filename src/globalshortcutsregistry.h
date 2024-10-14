@@ -185,9 +185,6 @@ private:
     {
         m_state = Normal;
     }
-    // For use in modifier only shortcuts
-    Qt::KeyboardModifiers m_modifierOnlyModifiers;
-    std::chrono::nanoseconds m_modifierFirstReleaseTime;
 
     using ComponentVec = std::vector<ComponentPtr>;
     ComponentVec m_components;

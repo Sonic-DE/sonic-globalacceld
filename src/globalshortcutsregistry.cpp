@@ -533,19 +533,13 @@ bool GlobalShortcutsRegistry::keyReleased(int keyQt)
     case Qt::Key_Shift:
     case Qt::Key_Control:
     case Qt::Key_Alt: {
-        constexpr auto releaseTimeout = std::chrono::milliseconds(200);
-        const auto currentTime = std::chrono::steady_clock::now().time_since_epoch();
         if (m_state == PressingModifierOnly) {
-            m_modifierOnlyModifiers = m_currentModifiers;
             m_state = ReleasingModifierOnly;
-            m_modifierFirstReleaseTime = currentTime;
+            handled = processKey(m_currentModifiers);
         }
         m_currentModifiers = modifiers & ~Utils::keyToModifier(key);
         if (m_state == ReleasingModifierOnly && !m_currentModifiers) {
             m_state = Normal;
-            if (currentTime - m_modifierFirstReleaseTime < releaseTimeout) {
-                handled = processKey(m_modifierOnlyModifiers);
-            }
         }
         break;
     }
