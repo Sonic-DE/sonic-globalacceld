@@ -215,6 +215,9 @@ void GlobalShortcutsRegistry::migrateConfig()
             }
 
             const QStringList migrateFromParts = migrateFrom.split(QLatin1Char(','));
+            if (migrateFromParts.size() < 2) {
+                return;
+            }
 
             if (!_config.group(migrateFromParts[0]).hasKey(migrateFromParts[1])) {
                 // Probably already migrated
