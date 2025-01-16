@@ -181,8 +181,13 @@ void GlobalShortcutsRegistry::migrateConfig()
                 continue;
             }
 
-            const QString shortcut = value.split(QLatin1Char(','))[0];
-            const QString defaultShortcut = value.split(QLatin1Char(','))[1];
+            const QStringList triplet = value.split(QLatin1Char(','));
+            if (triplet.size() != 3) {
+                continue;
+            }
+
+            const QString shortcut = triplet[0];
+            const QString defaultShortcut = triplet[1];
 
             if (shortcut != defaultShortcut) {
                 newGroup.writeEntry(key, shortcut);
