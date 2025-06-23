@@ -154,7 +154,7 @@ public Q_SLOTS:
     //! Returns the shortcut contexts available for the component.
     Q_SCRIPTABLE QStringList getShortcutContexts() const;
 
-    virtual void emitGlobalShortcutPressed(const GlobalShortcut &shortcut);
+    virtual void emitGlobalShortcutPressed(const GlobalShortcut &shortcut, bool isKeyRepeated);
     virtual void emitGlobalShortcutReleased(const GlobalShortcut &shortcut);
 
     Q_SCRIPTABLE void invokeShortcut(const QString &shortcutName, const QString &context = QStringLiteral("default"));
@@ -163,6 +163,9 @@ Q_SIGNALS:
 
     //! Signals that a action for this component was triggered
     Q_SCRIPTABLE void globalShortcutPressed(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);
+
+    //! Signals that a action for this component was held
+    Q_SCRIPTABLE void globalShortcutHeld(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);
 
     //! Signals that a action for this component is not triggered anymore
     Q_SCRIPTABLE void globalShortcutReleased(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);

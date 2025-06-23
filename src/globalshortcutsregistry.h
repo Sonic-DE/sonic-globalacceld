@@ -159,12 +159,12 @@ private:
 
     // called by the implementation to inform us about key presses
     // returns true if the key was handled
-    bool keyPressed(int keyQt);
+    bool keyPressed(int keyQt, bool isKeyRepeated);
     bool keyReleased(int keyQt);
     bool pointerPressed(Qt::MouseButtons pointerButtons);
     bool axisTriggered(int axis);
 
-    bool processKey(int keyQt);
+    bool processKey(int keyQt, bool isKeyRepeated);
 
     QHash<QKeySequence, GlobalShortcut *> _active_keys;
     QKeySequence _active_sequence;
