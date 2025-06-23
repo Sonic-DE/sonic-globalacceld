@@ -55,7 +55,7 @@ protected:
      * called by the implementation to inform us about key presses
      * @returns @c true if the key was handled
      **/
-    bool keyPressed(int keyQt);
+    bool keyPressed(int keyQt, bool isKeyRepeated);
     void grabKeys();
     void ungrabKeys();
     /**
