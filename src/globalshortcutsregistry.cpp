@@ -435,7 +435,7 @@ static void correctKeyEvent(int &keyQt)
     keyQt = keySym | keyMod;
 }
 
-bool GlobalShortcutsRegistry::keyPressed(int keyQt)
+bool GlobalShortcutsRegistry::keyPressed(int keyQt, bool isKeyRepeated)
 {
     correctKeyEvent(keyQt);
     const int key = keyQt & ~Qt::KeyboardModifierMask;
@@ -458,11 +458,11 @@ bool GlobalShortcutsRegistry::keyPressed(int keyQt)
     default:
         m_state = Normal;
         m_currentModifiers = modifiers;
-        return processKey(keyQt);
+        return processKey(keyQt, isKeyRepeated);
     }
 }
 
-bool GlobalShortcutsRegistry::processKey(int keyQt)
+bool GlobalShortcutsRegistry::processKey(int keyQt, bool isKeyRepeated)
 {
     int keys[maxSequenceLength] = {0, 0, 0, 0};
     int count = _active_sequence.count();
@@ -532,7 +532,7 @@ bool GlobalShortcutsRegistry::processKey(int keyQt)
     }
 
     // Invoke the action
-    shortcut->context()->component()->emitGlobalShortcutPressed(*shortcut);
+    shortcut->context()->component()->emitGlobalShortcutPressed(*shortcut, isKeyRepeated);
     m_lastShortcut = shortcut;
 
     return true;
@@ -557,7 +557,7 @@ bool GlobalShortcutsRegistry::keyReleased(int keyQt)
     case Qt::Key_Alt: {
         if (m_state == PressingModifierOnly) {
             m_state = ReleasingModifierOnly;
-            handled = processKey(m_currentModifiers);
+            handled = processKey(m_currentModifiers, false);
         }
         m_currentModifiers = modifiers & ~Utils::keyToModifier(key);
         if (m_state == ReleasingModifierOnly && !m_currentModifiers) {

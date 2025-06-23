@@ -38,9 +38,9 @@ void KGlobalAccelImpl::setEnabled(bool enable)
     s_interface = enable ? this : nullptr;
 }
 
-bool KGlobalAccelImpl::checkKeyPressed(int keyQt)
+bool KGlobalAccelImpl::checkKeyPressed(int keyQt, bool isKeyRepeated)
 {
-    return keyPressed(keyQt);
+    return keyPressed(keyQt, isKeyRepeated);
 }
 
 bool KGlobalAccelImpl::checkKeyReleased(int keyQt)

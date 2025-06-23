@@ -171,7 +171,7 @@ void Component::deactivateShortcuts(bool temporarily)
     }
 }
 
-void Component::emitGlobalShortcutPressed(const GlobalShortcut &shortcut)
+void Component::emitGlobalShortcutPressed(const GlobalShortcut &shortcut, bool isKeyRepeated)
 {
 #if HAVE_X11
     // pass X11 timestamp
@@ -184,7 +184,11 @@ void Component::emitGlobalShortcutPressed(const GlobalShortcut &shortcut)
         return;
     }
 
-    Q_EMIT globalShortcutPressed(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+    if (isKeyRepeated) {
+        Q_EMIT globalShortcutHeld(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+    } else {
+        Q_EMIT globalShortcutPressed(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+    }
 }
 
 void Component::emitGlobalShortcutReleased(const GlobalShortcut &shortcut)
@@ -207,7 +211,7 @@ void Component::invokeShortcut(const QString &shortcutName, const QString &conte
 {
     GlobalShortcut *shortcut = getShortcutByName(shortcutName, context);
     if (shortcut) {
-        emitGlobalShortcutPressed(*shortcut);
+        emitGlobalShortcutPressed(*shortcut, false);
     }
 }
 
