@@ -165,7 +165,7 @@ Q_SIGNALS:
     Q_SCRIPTABLE void globalShortcutPressed(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);
 
     //! Signals that a action for this component was held
-    Q_SCRIPTABLE void globalShortcutHeld(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);
+    Q_SCRIPTABLE void globalShortcutRepeated(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);
 
     //! Signals that a action for this component is not triggered anymore
     Q_SCRIPTABLE void globalShortcutReleased(const QString &componentUnique, const QString &shortcutUnique, qlonglong timestamp);

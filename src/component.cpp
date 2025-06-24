@@ -185,7 +185,7 @@ void Component::emitGlobalShortcutPressed(const GlobalShortcut &shortcut, bool i
     }
 
     if (isKeyRepeated) {
-        Q_EMIT globalShortcutHeld(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+        Q_EMIT globalShortcutRepeated(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
     } else {
         Q_EMIT globalShortcutPressed(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
     }
