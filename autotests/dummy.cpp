@@ -38,9 +38,9 @@ void KGlobalAccelImpl::setEnabled(bool enable)
     s_interface = enable ? this : nullptr;
 }
 
-bool KGlobalAccelImpl::checkKeyPressed(int keyQt, bool isKeyRepeated)
+bool KGlobalAccelImpl::checkKeyPressed(int keyQt, ShortcutKeyState state)
 {
-    return keyPressed(keyQt, isKeyRepeated);
+    return keyPressed(keyQt, state);
 }
 
 bool KGlobalAccelImpl::checkKeyReleased(int keyQt)

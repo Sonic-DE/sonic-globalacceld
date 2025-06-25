@@ -16,6 +16,8 @@
 #include <QHash>
 #include <QObject>
 
+#include "shortcutkeystate.h"
+
 class GlobalShortcut;
 class GlobalShortcutContext;
 class GlobalShortcutsRegistry;
@@ -154,8 +156,7 @@ public Q_SLOTS:
     //! Returns the shortcut contexts available for the component.
     Q_SCRIPTABLE QStringList getShortcutContexts() const;
 
-    virtual void emitGlobalShortcutPressed(const GlobalShortcut &shortcut, bool isKeyRepeated);
-    virtual void emitGlobalShortcutReleased(const GlobalShortcut &shortcut);
+    virtual void emitGlobalShortcutEvent(const GlobalShortcut &shortcut, ShortcutKeyState state);
 
     Q_SCRIPTABLE void invokeShortcut(const QString &shortcutName, const QString &context = QStringLiteral("default"));
 

@@ -53,7 +53,7 @@ KServiceActionComponent::KServiceActionComponent(KService::Ptr service)
 
 KServiceActionComponent::~KServiceActionComponent() = default;
 
-void KServiceActionComponent::emitGlobalShortcutPressed(const GlobalShortcut &shortcut, bool isKeyRepeated)
+void KServiceActionComponent::emitGlobalShortcutEvent(const GlobalShortcut &shortcut, ShortcutKeyState state)
 {
     KIO::ApplicationLauncherJob *job = nullptr;
 
