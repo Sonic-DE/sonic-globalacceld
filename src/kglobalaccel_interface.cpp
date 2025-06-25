@@ -32,9 +32,9 @@ void KGlobalAccelInterface::setRegistry(GlobalShortcutsRegistry *registry)
     d->owner = registry;
 }
 
-bool KGlobalAccelInterface::keyPressed(int keyQt, bool isKeyRepeated)
+bool KGlobalAccelInterface::keyPressed(int keyQt, ShortcutKeyState state)
 {
-    return d->owner->keyPressed(keyQt, isKeyRepeated);
+    return d->owner->keyPressed(keyQt, state);
 }
 
 void KGlobalAccelInterface::grabKeys()

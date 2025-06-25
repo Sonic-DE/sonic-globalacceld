@@ -12,6 +12,7 @@
 #include <QObject>
 
 #include "kglobalacceld_export.h"
+#include "shortcutkeystate.h"
 
 class GlobalShortcutsRegistry;
 
@@ -55,7 +56,7 @@ protected:
      * called by the implementation to inform us about key presses
      * @returns @c true if the key was handled
      **/
-    bool keyPressed(int keyQt, bool isKeyRepeated);
+    bool keyPressed(int keyQt, ShortcutKeyState state);
     void grabKeys();
     void ungrabKeys();
     /**

@@ -440,7 +440,7 @@ bool KGlobalAccelImpl::x11KeyPress(xcb_key_press_event_t *pEvent)
     if (NET::timestampCompare(pEvent->time, QX11Info::appTime()) > 0) {
         QX11Info::setAppTime(pEvent->time);
     }
-    return keyPressed(keyQt, false);
+    return keyPressed(keyQt, ShortcutKeyState::Pressed);
 }
 
 bool KGlobalAccelImpl::x11KeyRelease(xcb_key_release_event_t *pEvent)
