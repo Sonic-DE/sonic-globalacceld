@@ -184,23 +184,16 @@ void Component::emitGlobalShortcutEvent(const GlobalShortcut &shortcut, Shortcut
         return;
     }
 
-    switch (state)
-    {
-        case ShortcutKeyState::Pressed:
-        {
-            Q_EMIT globalShortcutPressed(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
-            break;
-        }
-        case ShortcutKeyState::Repeated:
-        {
-            Q_EMIT globalShortcutRepeated(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
-            break;
-        }
-        case ShortcutKeyState::Released:
-        {
-            Q_EMIT globalShortcutReleased(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
-            break;
-        }
+    switch (state) {
+    case ShortcutKeyState::Pressed:
+        Q_EMIT globalShortcutPressed(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+        break;
+    case ShortcutKeyState::Repeated:
+        Q_EMIT globalShortcutRepeated(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+        break;
+    case ShortcutKeyState::Released:
+        Q_EMIT globalShortcutReleased(shortcut.context()->component()->uniqueName(), shortcut.uniqueName(), timestamp);
+        break;
     }
 }
 
