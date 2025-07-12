@@ -160,8 +160,7 @@ private:
 
     // called by the implementation to inform us about key presses
     // returns true if the key was handled
-    bool keyPressed(int keyQt, ShortcutKeyState state);
-    bool keyReleased(int keyQt);
+    bool keyEvent(int keyQt, ShortcutKeyState state);
     bool pointerPressed(Qt::MouseButtons pointerButtons);
     bool axisTriggered(int axis);
 
