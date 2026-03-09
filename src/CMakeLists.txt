@@ -68,7 +68,6 @@ target_link_libraries(kglobalacceld
     KGlobalAccelD
     KF6::CoreAddons
     KF6::DBusAddons   # KDBusService
-    KF6::Crash
     )
 
 add_subdirectory(plugins)

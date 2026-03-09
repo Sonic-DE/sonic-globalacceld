@@ -11,7 +11,6 @@
 #include "kglobalacceld.h"
 
 #include <KAboutData>
-#include <KCrash>
 #include <KDBusService>
 #include <QCommandLineParser>
 #include <QGuiApplication>
@@ -40,8 +39,6 @@ int main(int argc, char **argv)
 
     KAboutData::setApplicationData(aboutdata);
 
-    KCrash::initialize();
-
     {
         QCommandLineParser parser;
         aboutdata.setupCommandLine(&parser);
@@ -52,9 +49,6 @@ int main(int argc, char **argv)
     KDBusService service(KDBusService::Unique);
 
     app.setQuitOnLastWindowClosed(false);
-
-    // Restart on a crash
-    KCrash::setFlags(KCrash::AutoRestart);
 
     KGlobalAccelD globalaccel;
     if (!globalaccel.init()) {
