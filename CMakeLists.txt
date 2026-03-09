@@ -45,7 +45,6 @@ endif()
 
 find_package(KF6Config ${KF6_MIN_VERSION} REQUIRED)
 find_package(KF6CoreAddons ${KF6_MIN_VERSION} REQUIRED)
-find_package(KF6Crash ${KF6_MIN_VERSION} REQUIRED)
 find_package(KF6DBusAddons ${KF6_MIN_VERSION} REQUIRED)
 find_package(KF6WindowSystem ${KF6_MIN_VERSION} REQUIRED)
 find_package(KF6GlobalAccel ${KF6_MIN_VERSION} REQUIRED)
